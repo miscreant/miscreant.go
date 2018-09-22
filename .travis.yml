@@ -1,69 +1,30 @@
-script: ./ci.sh
+language: go
+
+script:
+- go vet ./...
+- go test -v -race ./...
 
 branches:
   only:
-    - master
+  - master
 
+go:
+  - 1.10
+  - 1.11
+  go get -u github.com/golang/lint/golint
+  go get -u github.com/kisielk/errcheck
+  go vet ./...
+  go test -v ./...
+  golint -set_exit_status ./...
+  errcheck ./...
 matrix:
   fast_finish: true
-  allow_failures:
-  - rust: nightly
   include:
-  - language: csharp
-    mono: none
-    dotnet: 2.0.0
-    before_script: cd dotnet
-  - language: go
-    go: 1.9
-    before_script: cd go
-  - language: node_js
-    node_js: 9
-    before_script: cd js
-  - language: python
-    python: 2.7
-    before_script: cd python
-  - language: python
-    python: 3.6
-    before_script: cd python
-  - language: ruby
-    rvm: 2.5.0
-    before_install:
-    - gem update --system
-    - gem --version
-    before_script: cd ruby
-  - language: ruby
-    rvm: 2.2
-    before_script: cd ruby
-  - language: rust
-    rust: stable
-    before_script: cd rust
-    env:
-      - CARGO_FEATURES=--features="aes-soft"
-      - RUSTFLAGS=-Ctarget-feature=+aes
-  - language: rust
-    rust: stable
-    before_script: cd rust
-    env:
-      - RUSTFLAGS=-Ctarget-feature=+aes
-  - language: rust
-    rust: nightly
-    before_script: cd rust
-    env:
-      - CARGO_FEATURES=--features="aes-soft,nightly"
-      - RUSTFLAGS=-Ctarget-feature=+aes
-  - language: rust
-    rust: nightly
-    before_script: cd rust
-    env:
-      - CARGO_FEATURES=--features="aes-soft,nightly"
-      - RUSTFLAGS=-Ctarget-feature=+aes
-  - language: rust
-    rust: nightly
-    before_script: cd rust/tests/ffi
-    env:
-      - CC=clang
-      - LDFLAGS=-rtlib=compiler-rt
-      - RUSTFLAGS=-Ctarget-feature=+aes
-    script:
-      - make
-      - ./ffi_test
+  - name: gofmt
+    script: diff -u <(echo -n) <(gofmt -d -s .)
+  - name: golint
+    install: go get -u github.com/golang/lint/golint
+    script: golint -set_exit_status ./...
+  - name: errcheck
+    install: go get -u github.com/kisielk/errcheck
+    script: errcheck ./...

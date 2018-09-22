@@ -11,7 +11,7 @@ import (
 	"crypto/cipher"
 	"hash"
 
-	"github.com/miscreant/miscreant/go/block"
+	"github.com/miscreant/miscreant-go/block"
 )
 
 type cmac struct {

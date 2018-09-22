@@ -11,9 +11,9 @@ import (
 	"crypto/cipher"
 	"crypto/subtle"
 	"errors"
-	"github.com/miscreant/miscreant/go/block"
-	"github.com/miscreant/miscreant/go/cmac"
-	"github.com/miscreant/miscreant/go/pmac"
+	"github.com/miscreant/miscreant-go/block"
+	"github.com/miscreant/miscreant-go/cmac"
+	"github.com/miscreant/miscreant-go/pmac"
 	"hash"
 )
 
