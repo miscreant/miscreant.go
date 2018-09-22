@@ -27,7 +27,7 @@ type streamBlockExample struct {
 func loadSTREAMExamples() []streamExample {
 	var examplesJSON map[string]interface{}
 
-	exampleData, err := ioutil.ReadFile("../vectors/aes_siv_stream.tjson")
+	exampleData, err := ioutil.ReadFile("vectors/aes_siv_stream.tjson")
 	if err != nil {
 		panic(err)
 	}

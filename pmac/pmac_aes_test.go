@@ -24,7 +24,7 @@ type pmacAESExample struct {
 func loadPMACAESExamples() []pmacAESExample {
 	var examplesJSON map[string]interface{}
 
-	exampleData, err := ioutil.ReadFile("../../vectors/aes_pmac.tjson")
+	exampleData, err := ioutil.ReadFile("../vectors/aes_pmac.tjson")
 	if err != nil {
 		panic(err)
 	}
