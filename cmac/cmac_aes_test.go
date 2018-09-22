@@ -24,7 +24,7 @@ type cmacAESExample struct {
 func loadCMACAESExamples() []cmacAESExample {
 	var examplesJSON map[string]interface{}
 
-	exampleData, err := ioutil.ReadFile("../../vectors/aes_cmac.tjson")
+	exampleData, err := ioutil.ReadFile("../vectors/aes_cmac.tjson")
 	if err != nil {
 		panic(err)
 	}

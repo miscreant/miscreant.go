@@ -18,7 +18,7 @@ type dblExample struct {
 func loadDblExamples() []dblExample {
 	var examplesJSON map[string]interface{}
 
-	exampleData, err := ioutil.ReadFile("../../vectors/dbl.tjson")
+	exampleData, err := ioutil.ReadFile("../vectors/dbl.tjson")
 	if err != nil {
 		panic(err)
 	}

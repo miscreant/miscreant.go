@@ -28,7 +28,7 @@ type aesSIVExample struct {
 func loadAESSIVExamples(filename string) []aesSIVExample {
 	var examplesJSON map[string]interface{}
 
-	exampleData, err := ioutil.ReadFile("../vectors/" + filename)
+	exampleData, err := ioutil.ReadFile("vectors/" + filename)
 	if err != nil {
 		panic(err)
 	}
