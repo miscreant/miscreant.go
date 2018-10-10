@@ -11,6 +11,11 @@ and support encryption of individual messages or message streams.
 import "github.com/miscreant/miscreant-go"
 ```
 
+All types are designed to be **thread-compatible**: Methods of an instance shared between
+multiple threads (or goroutines) must not be accessed concurrently. Callers are responsible for
+implementing their own mutual exclusion.
+
+
 - [Documentation] (Wiki)
 - [godoc][godoc-link]
 
