@@ -1,4 +1,4 @@
-# miscreant.go [![Build Status][build-shield]][build-link] [![GoDoc][godoc-shield]][godoc-link] [![Go Report Card][goreport-shield]][goreport-link] [![MIT licensed][license-shield]][license-link] [![Gitter Chat][gitter-image]][gitter-link]
+# miscreant.go [![Build Status][build-shield]][build-link] [![GoDoc][godoc-shield]][godoc-link] [![MIT licensed][license-shield]][license-link] [![Gitter Chat][gitter-image]][gitter-link]
 
 > The best crypto you've never heard of, brought to you by [Phil Rogaway]
 
@@ -8,13 +8,12 @@ constructions. These algorithms are easy-to-use (or rather, hard-to-misuse)
 and support encryption of individual messages or message streams.
 
 ```go
-import "github.com/miscreant/miscreant-go"
+import "github.com/miscreant/miscreant.go/"
 ```
 
 All types are designed to be **thread-compatible**: Methods of an instance shared between
 multiple threads (or goroutines) must not be accessed concurrently. Callers are responsible for
 implementing their own mutual exclusion.
-
 
 - [Documentation] (Wiki)
 - [godoc][godoc-link]
@@ -60,21 +59,19 @@ For more information, please see [CODE_OF_CONDUCT.md].
 
 Bug reports and pull requests are welcome on GitHub at:
 
-<https://github.com/miscreant/miscreant-go>
+<https://github.com/miscreant/miscreant.go>
 
 ## Copyright
 
-Copyright (c) 2017-2018 [The Miscreant Developers][AUTHORS].
+Copyright (c) 2017-2019 [The Miscreant Developers][AUTHORS].
 See [LICENSE.txt] for further details.
 
-[build-shield]: https://secure.travis-ci.org/miscreant/miscreant-go.svg?branch=master
-[build-link]: https://travis-ci.org/miscreant/miscreant-go
-[godoc-shield]: https://godoc.org/github.com/miscreant/miscreant-go?status.svg
-[godoc-link]: https://godoc.org/github.com/miscreant/miscreant-go
-[goreport-shield]: https://goreportcard.com/badge/github.com/miscreant/miscreant-go
-[goreport-link]: https://goreportcard.com/report/github.com/miscreant/miscreant-go
+[build-shield]: https://travis-ci.org/miscreant/miscreant.go.svg?branch=master
+[build-link]: https://travis-ci.org/miscreant/miscreant.go/
+[godoc-shield]: https://godoc.org/github.com/miscreant/miscreant.go?status.svg
+[godoc-link]: https://godoc.org/github.com/miscreant/miscreant.go/
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
-[license-link]: https://github.com/miscreant/miscreant-go/blob/master/LICENSE.txt
+[license-link]: https://github.com/miscreant/miscreant.go/blob/master/LICENSE.txt
 [gitter-image]: https://badges.gitter.im/badge.svg
 [gitter-link]: https://gitter.im/miscreant/Lobby
 [Phil Rogaway]: https://en.wikipedia.org/wiki/Phillip_Rogaway
@@ -90,6 +87,6 @@ See [LICENSE.txt] for further details.
 [Google Group]: https://groups.google.com/forum/#!forum/miscreant-crypto
 [miscreant-crypto+subscribe@googlegroups.com]: mailto:miscreant-crypto+subscribe@googlegroups.com?subject=subscribe
 [cc]: https://contributor-covenant.org
-[CODE_OF_CONDUCT.md]: https://github.com/miscreant/miscreant-go/blob/master/CODE_OF_CONDUCT.md
-[AUTHORS]: https://github.com/miscreant/miscreant-go/blob/master/AUTHORS.md
-[LICENSE.txt]: https://github.com/miscreant/miscreant-go/blob/master/LICENSE.txt
+[CODE_OF_CONDUCT.md]: https://github.com/miscreant/miscreant.go/blob/master/CODE_OF_CONDUCT.md
+[AUTHORS]: https://github.com/miscreant/miscreant.go/blob/master/AUTHORS.md
+[LICENSE.txt]: https://github.com/miscreant/miscreant.go/blob/master/LICENSE.txt

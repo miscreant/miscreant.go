@@ -9,7 +9,7 @@ import (
 	"hash"
 	"math/bits"
 
-	"github.com/miscreant/miscreant-go/block"
+	"github.com/miscreant/miscreant.go/block"
 )
 
 // Number of L blocks to precompute (i.e. µ in the PMAC paper)
