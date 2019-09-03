@@ -15,9 +15,6 @@ All types are designed to be **thread-compatible**: Methods of an instance share
 multiple threads (or goroutines) must not be accessed concurrently. Callers are responsible for
 implementing their own mutual exclusion.
 
-- [Documentation] (Wiki)
-- [godoc][godoc-link]
-
 ## About AES-SIV and AES-PMAC-SIV
 
 **AES-SIV** and **AES-PMAC-SIV** provide [nonce-reuse misuse-resistance] (NRMR):
@@ -187,14 +184,14 @@ See [LICENSE.txt] for further details.
 [//]: # (general links)
 
 [Phil Rogaway]: https://en.wikipedia.org/wiki/Phillip_Rogaway
-[AES-SIV]: https://github.com/miscreant/miscreant/wiki/AES-SIV
+[AES-SIV]: https://github.com/miscreant/meta/wiki/AES-SIV
 [RFC 5297]: https://tools.ietf.org/html/rfc5297
-[AES-PMAC-SIV]: https://github.com/miscreant/miscreant/wiki/AES-PMAC-SIV
-[STREAM]: https://github.com/miscreant/miscreant/wiki/STREAM
-[nonce-reuse misuse-resistance]: https://github.com/miscreant/miscreant/wiki/Nonce-Reuse-Misuse-Resistance
+[AES-PMAC-SIV]: https://github.com/miscreant/meta/wiki/AES-PMAC-SIV
+[STREAM]: https://github.com/miscreant/meta/wiki/STREAM
+[nonce-reuse misuse-resistance]: https://github.com/miscreant/meta/wiki/Nonce-Reuse-Misuse-Resistance
 [AES-GCM]: https://en.wikipedia.org/wiki/Galois/Counter_Mode
 [chosen ciphertext attacks]: https://en.wikipedia.org/wiki/Chosen-ciphertext_attack
-[Documentation]: https://github.com/miscreant/miscreant/wiki/Go-Documentation
+[Documentation]: https://github.com/miscreant/meta/wiki/Go-Documentation
 [Gitter]: https://gitter.im/miscreant/Lobby
 [Google Group]: https://groups.google.com/forum/#!forum/miscreant-crypto
 [miscreant-crypto+subscribe@googlegroups.com]: mailto:miscreant-crypto+subscribe@googlegroups.com?subject=subscribe
