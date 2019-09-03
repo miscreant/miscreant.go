@@ -1,7 +1,7 @@
-Copyright (c) 2017-2018 The Miscreant Developers. The canonical list of project
+Copyright (c) 2017-2019 The Miscreant Developers. The canonical list of project
 contributors who hold copyright over the project can be found at:
 
-https://github.com/miscreant/miscreant/blob/master/AUTHORS.md
+https://github.com/miscreant/miscreant.go/blob/develop/AUTHORS.md
 
 MIT License
 
