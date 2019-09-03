@@ -1,5 +1,5 @@
 language: go
-go: 1.11
+go: 1.12
 
 matrix:
   fast_finish: true
@@ -11,7 +11,7 @@ matrix:
   - name: gofmt
     script: diff -u <(echo -n) <(gofmt -d -s .)
   - name: golint
-    install: go get -u github.com/golang/lint/golint
+    install: go get -u golang.org/x/lint/golint
     script: golint -set_exit_status ./...
   - name: errcheck
     install: go get -u github.com/kisielk/errcheck
@@ -19,4 +19,4 @@ matrix:
 
 branches:
   only:
-  - master
+    - develop
