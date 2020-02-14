@@ -114,7 +114,7 @@ import "github.com/miscreant/miscreant.go/"
 k := ...
 
 // Create a new cipher.AEAD instance
-c := miscreant.newAEAD("AES-PMAC-SIV", k, 16)
+c := miscreant.NewAEAD("AES-PMAC-SIV", k, 16)
 
 // Ciphertext to be decrypted
 ct := ...
