@@ -5,6 +5,7 @@ package miscreant
 import (
 	"crypto/cipher"
 	"crypto/rand"
+	"fmt"
 	"io"
 )
 
@@ -24,7 +25,7 @@ type aead struct {
 // Panics if the key size is unsupported or source of randomness fails.
 func GenerateKey(length int) []byte {
 	if length != 32 && length != 64 {
-		panic("miscreant.GenerateKey: invalid key size: " + string(length))
+		panic(fmt.Sprintf("miscreant.GenerateKey: invalid key size: %d", length))
 	}
 
 	key := make([]byte, length)
@@ -40,7 +41,7 @@ func GenerateKey(length int) []byte {
 // Panics if the configured nonce size is less than 16-bytes (128-bits)
 func GenerateNonce(c cipher.AEAD) []byte {
 	if c.NonceSize() < minimumRandomNonceSize {
-		panic("miscreant.GenerateNonce: nonce size is too small: " + string(c.NonceSize()))
+		panic(fmt.Sprintf("miscreant.GenerateNonce: nonce size is too small: %d", c.NonceSize()))
 	}
 
 	nonce := make([]byte, c.NonceSize())
