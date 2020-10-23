@@ -183,6 +183,40 @@ func TestAESCMACSIVAppend(t *testing.T) {
 	}
 }
 
+func TestAESCMACSIVInPlace(t *testing.T) {
+	const prefixSize = 8
+
+	for i, v := range loadAESSIVExamples("aes_siv.tjson") {
+		c, err := NewAESCMACSIV(v.key)
+		if err != nil {
+			t.Fatalf("NewAESCMACSIV: %d: %s", i, err)
+		}
+		// The test uses only the region after prefixSize bytes.
+		// The purpose is to verify that the aliasing checking is correct;
+		// a naive check would compare the two slices being passed to Seal(),
+		// but it must use the slice that will be appended to the first input
+		// and not the first input itself.
+		pt := make([]byte, prefixSize+len(v.plaintext), prefixSize+len(v.plaintext)+c.Overhead())
+		copy(pt[prefixSize:], v.plaintext)
+		ct, err := c.Seal(pt[:prefixSize], pt[prefixSize:], v.ad...)
+		if err != nil {
+			t.Errorf("Seal: %d: %s", i, err)
+		}
+		if !bytes.Equal(v.ciphertext, ct[prefixSize:]) {
+			t.Errorf("Seal: expected: %x\ngot: %x", v.ciphertext, ct[prefixSize:])
+		}
+
+		copy(ct[prefixSize:], v.ciphertext)
+		pt, err = c.Open(ct[:prefixSize], ct[prefixSize:], v.ad...)
+		if err != nil {
+			t.Errorf("Open: %d: %s", i, err)
+		}
+		if !bytes.Equal(v.plaintext, pt[prefixSize:]) {
+			t.Errorf("Open: %d: expected: %x\ngot: %x", i, v.plaintext, pt[prefixSize:])
+		}
+	}
+}
+
 func BenchmarkSIVAES128_Seal_1K(b *testing.B) {
 	a := make([]byte, 64)
 	m := make([]byte, 1024)
