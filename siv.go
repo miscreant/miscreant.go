@@ -31,6 +31,11 @@ var (
 	ErrTooManyAssociatedDataItems = errors.New("siv: too many associated data items")
 )
 
+//areAliased returns if two slices are exactly aliased
+func areAliased(dst, source []byte) bool {
+	return cap(dst) != 0 && cap(source) != 0 && &dst[:1][0] == &source[:1][0]
+}
+
 // Cipher is an instance of AES-SIV, configured with either AES-CMAC or
 // AES-PMAC as a message authentication code.
 type Cipher struct {
@@ -116,12 +121,31 @@ func (c *Cipher) Seal(dst []byte, plaintext []byte, data ...[]byte) ([]byte, err
 	// Authenticate
 	iv := c.s2v(data, plaintext)
 	ret, out := sliceForAppend(dst, len(iv)+len(plaintext))
-	copy(out, iv)
+	// Per the Seal contract, out and plaintext will alias exactly or not at all.
+	// If they do alias, since in SIV the IV is prepended to the ciphertext, then
+	// the inputs to XORKeyStream(out[len(iv):], plaintext) may partially overlap,
+	// which is not allowed by XORKeyStream. In that case, we'll need to shuffle
+	// things around to acommodate.
+	aliased := areAliased(out, plaintext)
+	if aliased {
+		// Store IV at the end of the buffer temporarily
+		copy(out[len(out)-len(iv):], iv)
+	} else {
+		copy(out, iv)
+	}
 
 	// Encrypt
 	zeroIVBits(iv)
 	ctr := cipher.NewCTR(c.b, iv)
-	ctr.XORKeyStream(out[len(iv):], plaintext)
+	if aliased {
+		ctr.XORKeyStream(out, plaintext)
+		// Put IV at the start of the buffer again and move ciphertext to the end
+		copy(iv, out[len(out)-len(iv):])
+		copy(out[len(iv):], out)
+		copy(out, iv)
+	} else {
+		ctr.XORKeyStream(out[len(iv):], plaintext)
+	}
 
 	return ret, nil
 }
@@ -147,12 +171,20 @@ func (c *Cipher) Open(dst []byte, ciphertext []byte, data ...[]byte) ([]byte, er
 	copy(iv, ciphertext)
 	zeroIVBits(iv)
 	ctr := cipher.NewCTR(c.b, iv)
+	copy(iv, ciphertext)
 	ret, out := sliceForAppend(dst, len(ciphertext)-len(iv))
-	ctr.XORKeyStream(out, ciphertext[len(iv):])
+	// See comment in Seal() regarding aliasing
+	aliased := areAliased(out, ciphertext)
+	if aliased {
+		copy(ciphertext, ciphertext[len(iv):])
+		ctr.XORKeyStream(out, ciphertext[:len(ciphertext)-len(iv)])
+	} else {
+		ctr.XORKeyStream(out, ciphertext[len(iv):])
+	}
 
 	// Authenticate
 	expected := c.s2v(data, out)
-	if subtle.ConstantTimeCompare(ciphertext[:len(iv)], expected) != 1 {
+	if subtle.ConstantTimeCompare(iv, expected) != 1 {
 		return nil, ErrNotAuthentic
 	}
 	return ret, nil
